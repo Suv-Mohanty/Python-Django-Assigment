@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    {% include 'cdnlines.html' %}
+    <title>Add City Details</title>
+</head>
+<body>
+    <h1 class="text-center text-primary mt-5">Add City Details</h1>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="offset-md-4 col-md-4">
+                <form method="POST" id="form">
+                    {% csrf_token %}
+                    <select name="stateid">
+                        {% for i in states %}
+                        <option value="{{i.state_id}}">{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="text" id="name" placeholder="Enter City Name" name="cityname" class="form-control" pattern="[A-Za-z]+">
+                    <div style="color: green; margin-left: 10px;"><span style="color: red;">* </span>Please enter only characters</div>
+                    <div id="error" style="color: red; margin-left: 10px;"></div>
+                    <center>
+                        <input type="submit" value="Add" class="btn btn-success btn-lg mt-2">
+                        <input type="reset" value="Clear" class="btn btn-danger btn-lg mt-2">
+                        <div class="text-center">
+                            <a href="{% url 'state' %}" class="btn btn-lg btn-primary mt-3">Go Back</a>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        const name=document.getElementById('name');
+        const form=document.getElementById('form');
+        const error=document.getElementById('error');
+
+        form.addEventListener('submit', (e) =>{
+            if (name.value=== '' || name.value== null){
+                error.innerHTML='* City Name is Required'
+                e.preventDefault();
+            }
+        })
+    </script>
+</body>
+</html>

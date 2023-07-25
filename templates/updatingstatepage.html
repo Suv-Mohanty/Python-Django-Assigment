@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+    {% include 'cdnlines.html' %}
+    <title>Add State Details</title>
+</head>
+<body>
+    <h1 class="text-center text-primary mt-5">Add State Details</h1>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="offset-md-4 col-md-4">
+                <form method="POST" id="form" action="{% url 'updatingstate' data.state_id %}">
+                    {% csrf_token %}
+                    <input type="text" id="name" name="statename" class="form-control" placeholder="Enter State Name" pattern="[A-Za-z]+" value="{{data.name}}">
+                    <div style="color: green; margin-left: 10px;"><span style="color: red;">* </span>Please enter only characters</div>
+                    <div id="error" style="color: red; margin-left: 10px;"></div>
+                    <center>
+                        <input type="submit" value="Update" class="btn btn-warning btn-lg mt-2">
+                        <input type="reset" value="Clear" class="btn btn-danger btn-lg mt-2">
+                        <div class="text-center">
+                            <a href="{% url 'state' %}" class="btn btn-lg btn-primary mt-3">Go Back</a>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        const name=document.getElementById('name');
+        const form=document.getElementById('form');
+        const error=document.getElementById('error');
+
+        form.addEventListener('submit', (e) =>{
+            if (name.value=== '' || name.value== null){
+                error.innerHTML='* State Name is Required'
+                e.preventDefault();
+            }
+        })
+    </script>
+</body>
+</html>

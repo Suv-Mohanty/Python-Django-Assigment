@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+    {% include 'cdnlines.html' %}
+    <title>Python - Django Assigment</title>
+</head>
+<body>
+    <h1 class="text-center text-primary">Welcome to State Page</h1>
+
+    <div class="container-fluid">
+        <div class="text-center">
+            <a href="{% url 'addstate' %}" class="btn btn-lg btn-success mb-3">Add State</a>
+            <a href="{% url 'city' %}" class="btn btn-lg btn-danger mb-3">Go to City Page</a>
+            <a href="{% url 'branch' %}" class="btn btn-lg btn-warning mb-3">Go to Branch Page</a>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% if data %}
+                <table class="table table-bordered text-center">
+                    <thead class="bg-success text-white">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Created On</th>
+                            <th>Updated On</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-dark text-white">
+                        {% for i in data %}
+                        <tr>
+                            <td>{{i.state_id}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.created_on}}</td>
+                            <td>{{i.updated_on}}</td>
+                            <td>
+                                <a href="{% url 'updatestate' i.state_id %}" class="btn btn-warning">Update</a>
+                                <a href="{% url 'deletestate' i.state_id %}" class="btn btn-danger ">Delete</a>
+                                <a href="{% url 'addcity' %}" class="btn btn-success">Add City</a>
+                            </td>   
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <h2 class="text-center text-danger">No Data Available</h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
